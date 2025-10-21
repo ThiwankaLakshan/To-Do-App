@@ -15,48 +15,38 @@ const saveTasks = () => {
 
 const addTask = ()=> {
     const taskInput = document.getElementById('taskInput');
+    const taskDate = document.getElementById('taskDate');
+    const taskTime = document.getElementById('taskTime');
+    
     const text = taskInput.value.trim();
+    const dateValue = taskDate.value;
+    const timeValue = taskTime.value;
 
     if (text) {
-        tasks.push({text: text, completed: false});
+        const newTask = {
+            text: text,
+            completed: false
+        };
+        
+        // Add date and time if provided
+        if (dateValue) {
+            newTask.date = dateValue;
+        }
+        if (timeValue) {
+            newTask.time = timeValue;
+        }
+        
+        tasks.push(newTask);
 
         updateTaskList();
         updateStats();
         saveTasks();
 
         taskInput.value = '';
+        taskDate.value = '';
+        taskTime.value = '';
     }
 };
-
-const addTaskBtn = document.getElementById('add-task-btn');
-const taskInput = document.getElementById('task-input');
-const taskList = document.getElementById('task-list');
-const taskDate = document.getElementById('task-date');
-const taskTime = document.getElementById('task-time');
-
-addTaskBtn.addEventListener('click', () => {
-  const taskText = taskInput.value.trim();
-  const dateValue = taskDate.value;
-  const timeValue = taskTime.value;
-
-  if (taskText === '') {
-    alert('Please enter a task!');
-    return;
-  }
-
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <span>${taskText}</span>
-    ${dateValue || timeValue ? `<span class="task-date-time">${dateValue} ${timeValue}</span>` : ''}
-  `;
-
-  taskList.appendChild(li);
-
-  // Reset fields
-  taskInput.value = '';
-  taskDate.value = '';
-  taskTime.value = '';
-});
 
 const toggleTaskComplete = (index) => {
     tasks[index].completed = !tasks[index].completed;
@@ -104,13 +94,29 @@ const updateTaskList = ()=> {
 
     tasks.forEach((task, index) => {
         const listItem = document.createElement('li');
+        
+        // Format date and time if they exist
+        let dateTimeHTML = '';
+        if (task.date || task.time) {
+            const formattedDate = task.date ? new Date(task.date).toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            }) : '';
+            const formattedTime = task.time || '';
+            dateTimeHTML = `<span class="task-date-time">${formattedDate} ${formattedTime}</span>`;
+        }
+        
         listItem.innerHTML = `
             <div class="taskItem">
                 <div class="task ${task.completed ? 'completed' : ''}">
                     <input type="checkbox" class="checkbox" ${
                         task.completed ? 'checked' : ''
                     } />
-                    <p>${task.text}</p>
+                    <div class="task-content">
+                        <p>${task.text}</p>
+                        ${dateTimeHTML}
+                    </div>
                 </div>
                 <div class="icons">
                     <img src="./img/edit.png" onClick="editTask(${index})" />

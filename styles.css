@@ -71,17 +71,58 @@ body {
 form {
     margin-top: 60px;
     width: 100%;
-    display: flex;
 }
 
-input {
-    flex: 1;
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.task-input-full {
+    width: 100%;
     padding: 16px;
     background-color: var(--secondarybackground);
     border: 1px solid var(--purple);
     border-radius: 10px;
     outline: none;
     color: var(--text);
+}
+
+.datetime-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+    padding: 16px;
+    background-color: var(--secondarybackground);
+    border: 1px solid var(--purple);
+    border-radius: 10px;
+    outline: none;
+    color: var(--text);
+}
+
+input[type="date"],
+input[type="time"] {
+    padding: 16px;
+    background-color: var(--secondarybackground);
+    border: 1px solid var(--purple);
+    border-radius: 10px;
+    outline: none;
+    color: var(--text);
+    color-scheme: dark;
+    flex: 1;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
 
 button {
@@ -127,6 +168,16 @@ button {
     background-color: var(--secondarybackground);
 }
 
+.task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.task-content p {
+    margin: 0;
+}
+
 .icons {
     display: flex;
     gap: 10px;
@@ -151,21 +202,9 @@ button {
     accent-color: var(--teal);
 }
 
-.task-input input {
-    margin-right: 6px;
-    padding: 5px;
-}
-
-#task-list li {
-    margin: 8px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    list-style: none;
-}
-
 .task-date-time {
-    display: block;
-    font-size: 0.9em;
+    font-size: 0.85em;
     color: var(--teal);
+    opacity: 0.8;
+    margin-top: 2px;
 }
