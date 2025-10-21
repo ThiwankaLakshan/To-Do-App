@@ -21,9 +21,17 @@
             </div>
         </div>
 
-        <form action="">
-            <input type="text" id="taskInput" placeholder="write your task">
+        <form>
+            <input type="text" id="task-input" placeholder="write your task">
             <button id="newTask" type="submit">+</button>
+            <div class="task-input">
+                <input type="text" id="task-input" placeholder="Enter a new task..." />
+                <input type="date" id="task-date" />
+                 <input type="time" id="task-time" />
+                 <button id="add-task-btn">Add Task</button>
+            </div>
+            <ul id="task-list"></ul>
+
         </form>
 
         <ul class="task-list" id="task-list"></ul>

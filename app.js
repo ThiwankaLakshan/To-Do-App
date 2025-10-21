@@ -28,6 +28,36 @@ const addTask = ()=> {
     }
 };
 
+const addTaskBtn = document.getElementById('add-task-btn');
+const taskInput = document.getElementById('task-input');
+const taskList = document.getElementById('task-list');
+const taskDate = document.getElementById('task-date');
+const taskTime = document.getElementById('task-time');
+
+addTaskBtn.addEventListener('click', () => {
+  const taskText = taskInput.value.trim();
+  const dateValue = taskDate.value;
+  const timeValue = taskTime.value;
+
+  if (taskText === '') {
+    alert('Please enter a task!');
+    return;
+  }
+
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <span>${taskText}</span>
+    ${dateValue || timeValue ? `<span class="task-date-time">${dateValue} ${timeValue}</span>` : ''}
+  `;
+
+  taskList.appendChild(li);
+
+  // Reset fields
+  taskInput.value = '';
+  taskDate.value = '';
+  taskTime.value = '';
+});
+
 const toggleTaskComplete = (index) => {
     tasks[index].completed = !tasks[index].completed;
     console.log(tasks);
